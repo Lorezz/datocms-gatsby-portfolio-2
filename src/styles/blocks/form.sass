@@ -1,0 +1,127 @@
+
+form
+  margin: 0 0 10px 0
+
+label
+  color: _palette(fg-bold)
+  display: block
+  font-size: 0.9em
+  font-weight: _font(weight-bold)
+  margin: 10px 0 5px 0
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="url"],
+select,
+textarea
+
+  background: rgba(255,255,255,0.5)
+  border-radius: 4px
+  border: none
+  border: solid 1px #ccc
+  color: inherit
+  display: block
+  outline: 0
+  padding: 0 1em
+  text-decoration: none
+  width: 100%
+
+  &:invalid
+    box-shadow: none
+
+  &:focus
+    border-color: cyan
+    box-shadow: 0 0 0 1px #111
+
+.select-wrapper
+  display: block
+  position: relative
+
+  &:before
+    color: #ccc
+    content: '\f078'
+    display: block
+    height: 50px
+    line-height:  50px
+    pointer-events: none
+    position: absolute
+    right: 0
+    text-align: center
+    top: 0
+    width: 50px
+
+  select::-ms-expand
+    display: none
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="url"],
+select
+  height: 50px
+
+textarea
+  padding: 0.75em 1em
+
+input[type="checkbox"],
+input[type="radio"]
+
+  display: block
+  float: left
+  margin-right: -2em
+  opacity: 0
+  width: 1em
+  z-index: -1
+
+  & label
+    color: blue
+    cursor: pointer
+    display: inline-block
+    font-size: 1em
+    font-weight: _font(weight)
+    padding-left:  0.75em
+    padding-right: 0.75em
+    position: relative
+
+    &:before
+      background: _palette(bg)
+      border-radius: 10px
+      border: solid 1px _palette(border)
+      content: ''
+      display: inline-block
+      height: 50px * 0.6
+      left: 0
+      line-height: 50px * 0.575
+      position: absolute
+      text-align: center
+      top: 0
+      width: 50px * 0.6
+
+  &:checked + label
+    &:before
+      background: _palette(fg-bold)
+      border-color: _palette(fg-bold)
+      color: _palette(bg)
+      content: '\f00c'
+
+  &:focus + label
+    &:before
+      border-color: _palette(accent)
+      box-shadow: 0 0 0 1px _palette(accent)
+
+input[type="checkbox"]
+  & + label
+    &:before
+      border-radius: 10px
+
+input[type="radio"]
+  & + label
+    &:before
+      border-radius: 100%
+
+

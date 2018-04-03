@@ -19,6 +19,7 @@
     "react-leaflet": "^1.9.1",
     "react-masonry-component": "6.0.1",
     "react-slick": "0.15.4",
+    "react-transition-group": "^2.3.0",
     "recompose": "^0.26.0"
   },
   "keywords": [

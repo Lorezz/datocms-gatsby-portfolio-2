@@ -2,12 +2,12 @@ import React from "react";
 import Link from "gatsby-link";
 import Masonry from "react-masonry-component";
 import Img from "gatsby-image";
-import { injectIntl } from 'react-intl';
+import { injectIntl } from "react-intl";
 class IndexPage extends React.Component {
-
   render() {
     let { data } = this.props;
-    const prefix = this.props.intl.locale === 'it' ? '/it' : '';
+    const prefix =
+      this.props.intl.locale === "en" ? "" : `/${this.props.intl.locale}`;
     return (
       <Masonry className="showcase">
         {data.allDatoCmsWork.edges.map(({ node: work }) => (

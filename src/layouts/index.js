@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Link from "gatsby-link";
 import { HelmetDatoCms } from "gatsby-source-datocms";
-import { IntlProvider, addLocaleData } from "react-intl";
+import { IntlProvider, addLocaleData, FormattedMessage } from "react-intl";
 import en from "react-intl/locale-data/en";
 import it from "react-intl/locale-data/it";
 import itMessages from "../locales/it.js";
@@ -16,6 +16,7 @@ const messages = {
   it: itMessages,
   en: enMessages
 };
+const locales = ["en", "it"];
 
 class TemplateWrapper extends React.Component {
   constructor(props) {
@@ -26,25 +27,62 @@ class TemplateWrapper extends React.Component {
     return (
       <ul className="sidebar__menu">
         <li>
-          <Link to={`${prefix}/`}>Home</Link>
+          <Link to={`${prefix}/`}>
+            <FormattedMessage id={"menu.home"} />
+          </Link>
         </li>
         <li>
-          <Link to={`${prefix}/portfolio`}>Portfolio</Link>
+          <Link to={`${prefix}/portfolio`}>
+            <FormattedMessage id={"menu.portfolio"} />
+          </Link>
         </li>
         <li>
-          <Link to={`${prefix}/about`}>About</Link>
+          <Link to={`${prefix}/about`}>
+            <FormattedMessage id={"menu.about"} />
+          </Link>
         </li>
         <li>
-          <Link to={`${prefix}/contact`}>Contact</Link>
+          <Link to={`${prefix}/contact`}>
+            <FormattedMessage id={"menu.contact"} />
+          </Link>
         </li>
       </ul>
     );
   }
 
+  renderLang(locale) {
+    let list = locales.filter(l => l != locale);
+    return (
+      <ul className="sidebar__menu">
+        <li key="current">{locale}</li>
+        {list.map(l => (
+          <li key={l}>
+            <Link to={`${l == "en" ? "" : l}/`}>{l}</Link>
+          </li>
+        ))}
+      </ul>
+    );
+  }
   render() {
-    const locale = this.props.location.pathname.startsWith("/it") ? "it" : "en";
-    let prefix = locale === "en" ? "" : "it";
+    //const locale = this.props.location.pathname.startsWith("/it") ? "it" : "en";
+    let path_splits = this.props.location.pathname.split("/");
+    let locale = "en";
+    console.log("PATH ", this.props.location.pathname);
+    let incipit = path_splits[1];
+    console.log("incipit", incipit);
+    if (locales.indexOf(incipit) > -1) {
+      locale = incipit;
+    }
+    console.log("locale ", locale);
+    let prefix = locale === "en" ? "" : locale;
     let { children, data } = this.props;
+
+    let socials = data.allDatoCmsSocialProfile.edges.reduce((uniq, s) => {
+      let k = `${s.node.profileType}|${s.node.url}`;
+      if (uniq.indexOf(k) < 0) uniq.push(k);
+      return uniq;
+    }, []);
+
     return (
       <IntlProvider locale={locale} messages={messages[locale]}>
         <div className="container">
@@ -54,20 +92,29 @@ class TemplateWrapper extends React.Component {
                 <Link to="/">{data.datoCmsSite.globalSeo.siteName}</Link>
               </h6>
 
+              <h6 className="sidebar__section">
+                  <FormattedMessage id={"menu"} />
+              </h6>
               {this.renderNav(prefix)}
 
               <p className="sidebar__social">
-                {data.allDatoCmsSocialProfile.edges.map(
-                  ({ node: profile }, index) => (
+                {socials.map(s => {
+                  let profile = s.split("|");
+                  return (
                     <a
-                      key={index}
-                      href={profile.url}
+                      key={profile[0]}
+                      href={profile[1]}
                       target="blank"
-                      className={`social social--${profile.profileType.toLowerCase()}`}
+                      className={`social social--${profile[0].toLowerCase()}`}
                     />
-                  )
-                )}
+                  );
+                })}
               </p>
+
+              <h6 className="sidebar__section">
+                  <FormattedMessage id={"langs"} />
+              </h6>
+              {this.renderLang(locale)}
             </div>
           </div>
           <div className="container__body">
