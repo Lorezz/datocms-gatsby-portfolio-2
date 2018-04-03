@@ -9,8 +9,6 @@ class Home extends React.Component {
     return edges.map(item => {
       let { title } = item.node;
       let { src } = item.node.img.sizes;
-      console.log("src", src);
-
       let bg = {
         backgroundImage: `url("${src}")`,
         backgroundPosition: "center center",
@@ -21,7 +19,7 @@ class Home extends React.Component {
         color: "#fff"
       };
       return (
-        <div className="slide__bg" style={bg}>
+        <div className="slide__bg" style={bg} key={item.node.id}>
           <div className="slide__text">{item.node.title}</div>
         </div>
       );
@@ -41,7 +39,8 @@ class Home extends React.Component {
       autoplaySpeed: 2000
     };
 
-    console.log("slides", slides);
+    let video_url_parts = contact.video.url.split("/");
+    let videoID = video_url_parts[video_url_parts.length-1];
     return (
       <article className="sheet">
         <HelmetDatoCms seo={home.seoMetaTags} />
@@ -57,11 +56,11 @@ class Home extends React.Component {
               }}
             />
             <div>
-              <p>{contact.video.url}</p>
+              <p>{videoID}</p>
               <iframe
                 width="100%"
                 height="360px"
-                src={`https://www.youtube.com/embed/cwLog8sANoM`}
+                src={`https://www.youtube.com/embed/${videoID}`}
                 poster={`${contact.video.thumbnailUrl}`}
                 frameBorder="0"
                 allowFullScreen

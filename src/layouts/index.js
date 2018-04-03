@@ -67,16 +67,12 @@ class TemplateWrapper extends React.Component {
     //const locale = this.props.location.pathname.startsWith("/it") ? "it" : "en";
     let path_splits = this.props.location.pathname.split("/");
     let locale = "en";
-    console.log("PATH ", this.props.location.pathname);
     let incipit = path_splits[1];
-    console.log("incipit", incipit);
     if (locales.indexOf(incipit) > -1) {
       locale = incipit;
     }
-    console.log("locale ", locale);
     let prefix = locale === "en" ? "" : locale;
     let { children, data } = this.props;
-
     let socials = data.allDatoCmsSocialProfile.edges.reduce((uniq, s) => {
       let k = `${s.node.profileType}|${s.node.url}`;
       if (uniq.indexOf(k) < 0) uniq.push(k);
