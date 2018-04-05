@@ -5,33 +5,6 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators;
   const locales = ["it", "en"];
 
-  /*
-  return new Promise((resolve, reject) => {
-    graphql(`
-      {
-        allDatoCmsWork {
-          edges {
-            node {
-              slug
-            }
-          }
-        }
-      }
-    `).then(result => {
-      result.data.allDatoCmsWork.edges.map(({ node: work }) => {
-        createPage({
-          path: `works/${work.slug}`,
-          component: path.resolve(`./src/templates/work.js`),
-          context: {
-            slug: work.slug,
-          },
-        })
-      })
-      resolve()
-    })
-  })
-  */
-
   locales.forEach(locale => {
     const prefix = locale === "en" ? "" : `/${locale}`;
     createPage({

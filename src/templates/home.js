@@ -44,6 +44,7 @@ class Home extends React.Component {
     return (
       <article className="sheet">
         <HelmetDatoCms seo={home.seoMetaTags} />
+
         <div className="sheet__inner">
           <div className="sheet__body">
             <div className="slides__wrapper">
