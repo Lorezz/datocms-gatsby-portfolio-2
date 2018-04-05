@@ -80,39 +80,45 @@ class Contact extends React.Component {
         <div className="sheet__inner">
           <h1 className="sheet__title">{contact.slug}</h1>
           <p className="sheet__lead">{contact.text}</p>
-        </div>
-        <div className="sheet__body">
-          <div className="map_wrap" width="600px" height="400px">
-            {this.renderMap()}
-          </div>
 
-          <div style={{ marginTop: "40px", marginBottom: "40px" }}>
-            <h3>Netifly Contact Form</h3>
-            <a href="https://www.netlify.com/docs/form-handling/" target="_blank">netlify.com form-handling</a>
-            <form
-              name="contact"
-              method="POST"
-              netlify-honeypot="bot-field"
-              netlify
-            >
-              <input type="hidden" name="bot-field" />
+          <div className="sheet__body">
+            <div className="map_wrap" width="500px" height="350px">
+              {this.renderMap()}
+            </div>
 
-              <div>
-                <label>Your Name:</label>
-                <input type="text" name="name" />
-              </div>
-              <div>
-                <label>Your Email:</label>
-                <input type="email" name="email" />
-              </div>
-              <div>
-                <label>Message:</label>
-                <textarea name="message" />
-              </div>
-              <div>
-                <input type="submit" className="button" value="Send" />
-              </div>
-            </form>
+            <div style={{ marginTop: "40px", marginBottom: "40px" }}>
+              <h3>Netifly Contact Form</h3>
+              <a
+                href="https://www.netlify.com/docs/form-handling/"
+                target="_blank"
+              >
+                netlify.com form-handling
+              </a>
+              <form
+                name="contact"
+                method="POST"
+                netlify-honeypot="bot-field"
+                netlify
+              >
+                <input type="hidden" name="bot-field" />
+
+                <div>
+                  <label>Your Name:</label>
+                  <input type="text" name="name" />
+                </div>
+                <div>
+                  <label>Your Email:</label>
+                  <input type="email" name="email" />
+                </div>
+                <div>
+                  <label>Message:</label>
+                  <textarea name="message" />
+                </div>
+                <div>
+                  <input type="submit" className="button" value="Send" />
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </article>

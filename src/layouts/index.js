@@ -7,8 +7,8 @@ import en from "react-intl/locale-data/en";
 import it from "react-intl/locale-data/it";
 import itMessages from "../locales/it.js";
 import enMessages from "../locales/en.js";
-
 import "../styles/index.sass";
+import Img from "gatsby-image";
 
 addLocaleData([...it, ...en]);
 
@@ -21,28 +21,32 @@ const locales = ["en", "it"];
 class TemplateWrapper extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      is_open: false
+    };
   }
 
   renderNav(prefix) {
     return (
       <ul className="sidebar__menu">
         <li>
-          <Link to={`${prefix}/`}>
+          <Link to={`${prefix}/`} onClick={() => this.toggleSidebar()}>
             <FormattedMessage id={"menu.home"} />
           </Link>
         </li>
         <li>
-          <Link to={`${prefix}/portfolio`}>
+          <Link to={`${prefix}/portfolio`} onClick={() => this.toggleSidebar()}>
             <FormattedMessage id={"menu.portfolio"} />
           </Link>
         </li>
         <li>
-          <Link to={`${prefix}/about`}>
+          <Link to={`${prefix}/about`} onClick={() => this.toggleSidebar()}>
             <FormattedMessage id={"menu.about"} />
           </Link>
         </li>
         <li>
-          <Link to={`${prefix}/contact`}>
+          <Link to={`${prefix}/contact`} onClick={() => this.toggleSidebar()}>
             <FormattedMessage id={"menu.contact"} />
           </Link>
         </li>
@@ -50,17 +54,31 @@ class TemplateWrapper extends React.Component {
     );
   }
 
+  toggleSidebar() {
+    this.setState({ is_open: !this.state.is_open });
+  }
+  closeSidebar() {
+    this.setState({ is_open: false });
+  }
+
   renderLang(locale) {
     let list = locales.filter(l => l != locale);
     return (
-      <ul className="sidebar__menu">
-        <li key="current">{locale}</li>
+      <div className="sidebar__langs">
+        <span className="sidebar__langs__item" key="current">
+          <FormattedMessage id={`lang_${locale}`} />
+        </span>
         {list.map(l => (
-          <li key={l}>
-            <Link to={`${l == "en" ? "" : l}/`}>{l}</Link>
-          </li>
+          <span className="sidebar__langs__item" key={l}>
+            <Link
+              to={`${l == "en" ? "" : l}/`}
+              onClick={() => this.toggleSidebar()}
+            >
+              <FormattedMessage id={`lang_${l}`} />
+            </Link>
+          </span>
         ))}
-      </ul>
+      </div>
     );
   }
   render() {
@@ -78,18 +96,25 @@ class TemplateWrapper extends React.Component {
       if (uniq.indexOf(k) < 0) uniq.push(k);
       return uniq;
     }, []);
-
+    let cn = this.state.is_open ? "container is-open" : "container";
     return (
       <IntlProvider locale={locale} messages={messages[locale]}>
-        <div className="container">
+        <div className={cn}>
           <div className="container__sidebar">
             <div className="sidebar">
               <h6 className="sidebar__title">
                 <Link to="/">{data.datoCmsSite.globalSeo.siteName}</Link>
               </h6>
 
+              <div className="sidebar__logo">
+                <img
+                  className="sidebar__logo__img"
+                  src={data.datoCmsGlobalInfo.logo.sizes.src}
+                />
+              </div>
+
               <h6 className="sidebar__section">
-                  <FormattedMessage id={"menu"} />
+                <FormattedMessage id={"menu"} />
               </h6>
               {this.renderNav(prefix)}
 
@@ -108,19 +133,24 @@ class TemplateWrapper extends React.Component {
               </p>
 
               <h6 className="sidebar__section">
-                  <FormattedMessage id={"langs"} />
+                <p className="sidebar__copyright">
+                  {data.datoCmsGlobalInfo.copyright}
+                </p>
               </h6>
-              {this.renderLang(locale)}
+
+              <div className="sidebar__section">{this.renderLang(locale)}</div>
             </div>
           </div>
           <div className="container__body">
             <div className="container__mobile-header">
               <div className="mobile-header">
                 <div className="mobile-header__menu">
-                  <Link to="#" data-js="toggleSidebar" />
+                  <a onClick={() => this.toggleSidebar()} />
                 </div>
                 <div className="mobile-header__logo">
-                  <Link to="/">{data.datoCmsSite.globalSeo.siteName}</Link>
+                  <Link to="/" onClick={() => this.toggleSidebar()}>
+                    {data.datoCmsSite.globalSeo.siteName}
+                  </Link>
                 </div>
               </div>
             </div>
@@ -140,6 +170,14 @@ export default TemplateWrapper;
 
 export const query = graphql`
   query LayoutQuery {
+    datoCmsGlobalInfo {
+      copyright
+      logo {
+        sizes(maxWidth: 250, imgixParams: { fm: "png" }) {
+          ...GatsbyDatoCmsSizes
+        }
+      }
+    }
     datoCmsSite {
       globalSeo {
         siteName

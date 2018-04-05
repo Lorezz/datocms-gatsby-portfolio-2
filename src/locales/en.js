@@ -4,7 +4,9 @@ const messages = {
   'menu.home': 'Home',
   'menu.portfolio': 'Portfolio',
   'menu': 'Menu:',
-  'langs': 'Languages:'
+  'langs': 'Languages:',
+  'lang_it': 'ITA',
+  'lang_en': 'ENG'
 };
 
 export default messages;
