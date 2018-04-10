@@ -2,7 +2,7 @@
   "name": "gatsby-datocms-demo",
   "description": "Gatsby DatoCMS creative portfolio demo",
   "version": "1.0.1",
-  "author": "Stefano Verna <s.verna@datocms.com>",
+  "author": "Lorezz <point.point@gmail.com>",
   "dependencies": {
     "dotenv": "4.0.0",
     "gatsby": "^1.9.194",
