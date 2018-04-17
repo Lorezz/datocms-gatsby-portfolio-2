@@ -101,10 +101,11 @@ export const query = graphql`
         thumbnailUrl
       }
     }
-    slides: allDatoCmsSlide {
+    slides: allDatoCmsSlide(filter:{locale: { eq: $locale }}) {
       edges {
         node {
           id
+          locale
           title
           img {
             sizes(maxWidth: 800, imgixParams: { fm: "jpg", auto: "compress" }) {
