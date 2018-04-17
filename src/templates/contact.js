@@ -94,22 +94,14 @@ class Contact extends React.Component {
               >
                 netlify.com form-handling
               </a>
-              <form name="contact" method="POST" netlify>
-                <div>
+              <form name="contact" method="POST"   data-netlify="true">
                   <label>Your Name:</label>
                   <input type="text" name="name" />
-                </div>
-                <div>
                   <label>Your Email:</label>
                   <input type="email" name="email" />
-                </div>
-                <div>
                   <label>Message:</label>
                   <textarea name="message" />
-                </div>
-                <div>
                   <button type="submit"   className="button" >Send</button>
-                </div>
               </form>
             </div>
           </div>
