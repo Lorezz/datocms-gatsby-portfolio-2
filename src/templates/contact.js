@@ -87,21 +87,14 @@ class Contact extends React.Component {
             </div>
 
             <div style={{ marginTop: "40px", marginBottom: "40px" }}>
-              <h3>Netifly Contact Form</h3>
+              <h3>Netlify Contact Form</h3>
               <a
                 href="https://www.netlify.com/docs/form-handling/"
                 target="_blank"
               >
                 netlify.com form-handling
               </a>
-              <form
-                name="contact"
-                method="POST"
-                netlify-honeypot="bot-field"
-                netlify
-              >
-                <input type="hidden" name="bot-field" />
-
+              <form name="contact" method="POST" netlify>
                 <div>
                   <label>Your Name:</label>
                   <input type="text" name="name" />
@@ -115,7 +108,7 @@ class Contact extends React.Component {
                   <textarea name="message" />
                 </div>
                 <div>
-                  <input type="submit" className="button" value="Send" />
+                  <button type="submit"   className="button" >Send</button>
                 </div>
               </form>
             </div>
